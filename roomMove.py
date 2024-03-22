@@ -1,9 +1,11 @@
 import random
+import threading
 import keyboard
+import time
 from core import clear
 
 #dimY = int(input("Dimentions : ")) TODO Get monitor dimentions and use them for this
-dimY = 50
+dimY = 20
 dimX = int(dimY * 3)
 playerCoord = [int(dimX/2),int(dimY/2)]
 
@@ -11,33 +13,46 @@ playerDeg = 0
 playerInertia = 0
 
 
-def PPosCheck(playerDeg,playerCoord,playerInertia):
-    print("foo") #TODO
-
+def physCheck(playerDeg,playerCoord,playerInertia):
+    while True:
+        if(keyboard.is_pressed("d")):
+            playerDeg += 0.5
+        elif(keyboard.is_pressed("a")):
+            playerDeg -= 0.5
+        if(playerDeg < 0):
+            playerDeg = 259.5
+        elif(playerDeg <= 360):
+            playerDeg = 0
+        print(playerDeg)
+        time.sleep(0.0416)
 
 def screenRefresh():
-    clear()
-    exLineBase = ["|"]
-    for i in range(0,dimX):
-        exLineBase += " "
-    exLineBase += "|"
-    exLine = exLineBase
-    print("#" + ("-"*dimX) + "#")
-    for i in range(1,dimY-1):
-        for n in range(1,dimX-1):
-            if(i == playerCoord[1]):
-                exLine[playerCoord[0]] = "0"
-                print("".join(str(x) for x in exLine))
-                exLine = exLineBase
-                break
+    while True:
+        clear()
+        exLineBase = ["|"]
+        for i in range(0,dimX):
+            exLineBase += " "
+        exLineBase += "|"
+        exLine = exLineBase
+        print("#" + ("-"*dimX) + "#")
+        for i in range(1,dimY-1):
+            for n in range(1,dimX-1):
+                if(i == playerCoord[1]):
+                    exLine[playerCoord[0]] = "0"
+                    print("".join(str(x) for x in exLine))
+                    exLine = exLineBase
+                    break
+                else:
+                    print("|" + " "*dimX + "|")
+                    break
             else:
                 print("|" + " "*dimX + "|")
-                break
-        else:
-            print("|" + " "*dimX + "|")
-    print("#" + ("-"*dimX) + "#")
+        print("#" + ("-"*dimX) + "#")
+        time.sleep(0.0416)
 
 
 
 
-screenRefresh()
+threading.Thread(target=screenRefresh).start()
+threading.thread(target=physCheck(playerDeg,playerCoord,playerInertia)).start()
+
