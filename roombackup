@@ -1,0 +1,20 @@
+import random
+
+#dimY = int(input("Dimentions : ")) TODO Get monitor dimentions and use them for this
+dimY = 50
+dimX = int(dimY * 3)
+print(dimX)
+playerY = dimY/2
+#playerY = random.randint(1,dimY - 1)
+print(dimY)
+print("#" + ("-"*dimX) + "#")
+for i in range(1,dimY-1):
+    for in in range(1,dimX-1):
+        if(i == playerY):
+            print("&")
+        else:
+            print(" ")
+    
+    else:
+        print("|" + " "*dimX + "|")
+print("#" + ("-"*dimX) + "#")
