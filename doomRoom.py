@@ -5,7 +5,7 @@ import time
 from core import clear
 
 #dimY = int(input("Dimentions : ")) TODO Get monitor dimentions and use them for this
-dimY = 20
+dimY = 40
 dimX = int(dimY * 3)
 playerCoord = [int(dimX/2),int(dimY/2)]
 
@@ -16,14 +16,14 @@ playerInertia = 0
 def physCheck(playerDeg,playerCoord,playerInertia):
     while True:
         if(keyboard.is_pressed("d")):
-            playerDeg += 0.5
+            playerDeg += 2
         elif(keyboard.is_pressed("a")):
-            playerDeg -= 0.5
+            playerDeg -= 2
         if(playerDeg < 0):
-            playerDeg = 259.5
-        elif(playerDeg <= 360):
+            playerDeg = 359
+        elif(playerDeg >= 360):
             playerDeg = 0
-        print(playerDeg)
+        #print(playerDeg)
         time.sleep(0.0416)
 
 def screenRefresh():
@@ -54,5 +54,5 @@ def screenRefresh():
 
 
 threading.Thread(target=screenRefresh).start()
-threading.thread(target=physCheck(playerDeg,playerCoord,playerInertia)).start()
+threading.Thread(target=physCheck(playerDeg,playerCoord,playerInertia)).start()
 
