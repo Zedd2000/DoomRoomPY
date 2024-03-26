@@ -10,14 +10,18 @@ dimX = int(dimY * 3)
 
 with open('playerPhys.csv', 'r') as file:
     pInit = file.readlines()
-print(pInit)
-pInit[0] = str(int(dimX/2))
+
+pInit[0] = str("""0
+        0
+        0
+        0""")
+#pInit[0] = str(int(dimX/2))
 print(pInit)
 pInit[1] = str(int(dimY/2))
 pInit[2] = str(0)
 pInit[3] = str(0)
 with open('playerPhys.csv', 'w') as file:
-    file.writelines(pInit)
+    file.writerow(pInit[0:])
 
 playerDeg = 0
 playerInertia = 0
